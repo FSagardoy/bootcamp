@@ -6,7 +6,7 @@ public class Provincia {
     private String abreviatura;
     private int superficie;
     private String capital;
-    private int idPais;
+    private int idPais ;
 
     public int getIdProvincia() {
         return idProvincia;

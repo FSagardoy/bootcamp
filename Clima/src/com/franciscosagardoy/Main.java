@@ -18,7 +18,7 @@ public class Main {
         Scanner reader = new Scanner(System.in);
         int contador = 0;
         do{
-            System.out.println("Ingrese el numero de lo que desea crear: \n1: Pais \n2; Provincia \n3: Clima \n4: Salir");
+            System.out.println("Ingrese el numero de lo que desea crear: \n1: Pais \n2: Provincia \n3: Clima \n4: Elija la provincia que desea ver el clima \n5: Salir");
             int n = reader.nextInt();
             switch (n) {
                 case 1: {
@@ -129,6 +129,19 @@ public class Main {
                     break;
                 }
                 case 4:{
+                    System.out.println("Seleccione el indice de la provincia:");
+                    ArrayList<Provincia> resultado = gestor.allProvincias();
+                    for (int i = 0; i < resultado.size(); i++){
+                        System.out.println(resultado.get(i).getIdProvincia() + ": " + resultado.get(i).getNombre());
+                    }
+                    n = reader.nextInt();
+                    System.out.println(gestor.getClimaHoy(n));
+                    System.out.println("Pronostico Extendido");
+                    for (Extendido extendido : gestor.getExtendidos(n)) {
+                        System.out.println(extendido.ToString());
+                    }
+                }
+                case 5:{
                     contador++;
                     break;
                 }

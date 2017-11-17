@@ -124,6 +124,44 @@ public class GestorBD {
         return prov;
     }
 
+    public ArrayList<Extendido> getExtendidos(int idProvincia) throws SQLException{
+        this.abrirConexion();
+        ArrayList<Extendido> extendidos = new ArrayList<>();
+        Statement st = conn.createStatement();
+        String query = "SELECT e.fecha, e.dia_semana, e.tempmax, e.tempmin, e.descripcion FROM extendidos e  join climas c on c.idclima = e.idclima WHERE YEAR(c.fecha) = YEAR(NOW()) AND MONTH(c.fecha) = MONTH(NOW()) AND DAY(c.fecha) = DAY(NOW()) AND c.idprovincia = " + idProvincia;
+        ResultSet res = st.executeQuery(query);
+        while (res.next()){
+            Extendido extendido = new Extendido();
+            extendido.setFecha(res.getDate("fecha"));
+            extendido.setDiaSemana(res.getString("dia_semana"));
+            extendido.setTempmax(res.getInt("tempmax"));
+            extendido.setTempmin(res.getInt("tempmin"));
+            extendido.setDescripcion(res.getString("descripcion"));
+            extendidos.add(extendido);
+        }
+        res.close();
+        st.close();
+        this.cerrarConexion();
+        return extendidos;
+    }
+
+    public String  getClimaHoy(int idProvincia) throws SQLException {
+        String cadena = "";
+        this.abrirConexion();
+        Statement st = conn.createStatement();
+        String query = "select p.nombre, p.capital, a.humedad, a.presion, a.visibilidad, a.ambiente_asc, v.velocidad, v.direccion, c.descripcion, c.temperatura from climas c join atmosferas a on a.idatmosfera = c.idatmosfera join vientos v on v.idviento = c.idviento join provincias p on p.idprovincia = c.idprovincia WHERE YEAR(c.fecha) = YEAR(NOW()) AND MONTH(c.fecha) = MONTH(NOW()) AND DAY(c.fecha) = DAY(NOW()) AND c.idprovincia = " + idProvincia;
+        ResultSet res = st.executeQuery(query);
+        if (res.next()){
+            cadena = "Provincia: " + res.getString("nombre") + "\nCapital: " + res.getString("capital") + "\nClima:\nHumedad: " + res.getInt("humedad") + "\nPresion: "
+                    + res.getDouble("presion") + "\nVisibilidad: " + res.getInt("visibilidad") + "\nAmbiente Ascendente: " + res.getInt("ambiente_asc") + "\nVelocidad del viento: " + res.getInt("velocidad")
+                    + "\nDireccion: " + res.getString("direccion") + "\nTemperatura: " + res.getInt("temperatura") + "\nDescripcion: " + res.getString("descripcion") ;
+        }
+        res.close();
+        st.close();
+        this.cerrarConexion();
+        return cadena;
+    }
+
     public int getIdAtmosfera() throws  SQLException{
         this.abrirConexion();
         int id = 0;

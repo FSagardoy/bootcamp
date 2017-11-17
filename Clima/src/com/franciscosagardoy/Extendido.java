@@ -66,4 +66,9 @@ public class Extendido {
     public void setIdClima(int idClima) {
         this.idClima = idClima;
     }
+
+    public String ToString() {
+        return "Fecha: " + fecha + "\nDia: " + diaSemana + "\nTemperatura Minima: " + tempmin + "\nTemperatura Maxima: "
+                + tempmax + "\nDescripcion: " + descripcion ;
+    }
 }
