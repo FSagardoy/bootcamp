@@ -30,7 +30,6 @@ public class ClimaImplementDAO implements ClimaDAO{
             preparedStatement.setInt(6, clima.getTempmin());
             preparedStatement.setInt(7, clima.getTempmax());
             resultado = conexion.executeNonQuery(preparedStatement);
-//            conexion.desconectar();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -49,7 +48,6 @@ public class ClimaImplementDAO implements ClimaDAO{
             preparedStatement.setInt(4, clima.getTempmax());
             preparedStatement.setInt(5, clima.getIdClima());
             resultado = conexion.executeNonQuery(preparedStatement);
-//            conexion.desconectar();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -64,7 +62,6 @@ public class ClimaImplementDAO implements ClimaDAO{
             PreparedStatement preparedStatement = conexion.getConnection().prepareStatement(consulta);
             preparedStatement.setInt(1, clima.getIdClima());
             resultado = conexion.executeNonQuery(preparedStatement);
-//            conexion.desconectar();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -73,7 +70,7 @@ public class ClimaImplementDAO implements ClimaDAO{
 
     public ArrayList<Clima> getClima() {
         conexion.conectar();
-        ArrayList<Clima> resultado = new ArrayList<>();
+        ArrayList<Clima> resultado = new ArrayList<Clima>();
         String consulta = "select c.idclima, c.fecha, c.temperatura, c.descripcion, v.idviento, v.direccion, v.velocidad, a.idatmosfera, a.humedad, a.presion, a.visibilidad, a.ambiente_asc, p.idprovincia, p.nombre, c.tempmin, c.tempmax from climas c join vientos v on c.idviento = v.idviento join atmosferas a on c.idatmosfera = a.idatmosfera join provincias p on c.idprovincia = p.idprovincia where fecha between NOW() and DATE_ADD(NOW(), INTERVAL 10 DAY)";
         try {
             PreparedStatement preparedStatement = conexion.getConnection().prepareStatement(consulta);
@@ -99,7 +96,6 @@ public class ClimaImplementDAO implements ClimaDAO{
                 resultado.add(clima);
             }
             res.close();
-//            conexion.desconectar();
         } catch (SQLException e) {
             e.printStackTrace();
         }

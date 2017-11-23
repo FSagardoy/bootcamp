@@ -26,7 +26,6 @@ public class PaisImplementDAO implements PaisDAO {
             preparedStatement.setString(2, pais.getCodAlfa2());
             preparedStatement.setString(3,pais.getNombre());
             resultado = conexion.executeNonQuery(preparedStatement);
-//            conexion.desconectar();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -44,7 +43,6 @@ public class PaisImplementDAO implements PaisDAO {
             preparedStatement.setString(3, pais.getNombre());
             preparedStatement.setInt(4, pais.getIdPais());
             resultado = conexion.executeNonQuery(preparedStatement);
-//            conexion.desconectar();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -59,7 +57,6 @@ public class PaisImplementDAO implements PaisDAO {
             PreparedStatement preparedStatement = conexion.getConnection().prepareStatement(consulta);
             preparedStatement.setInt(1, pais.getIdPais());
             resultado = conexion.executeNonQuery(preparedStatement);
-//            conexion.desconectar();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -69,7 +66,7 @@ public class PaisImplementDAO implements PaisDAO {
 
     public ArrayList<Pais> getPaises() {
         conexion.conectar();
-        ArrayList<Pais> resultado = new ArrayList<>();
+        ArrayList<Pais> resultado = new ArrayList<Pais>();
         String consulta = "select * from paises";
         try {
             PreparedStatement preparedStatement = conexion.getConnection().prepareStatement(consulta);
@@ -83,7 +80,6 @@ public class PaisImplementDAO implements PaisDAO {
                 resultado.add(pais);
             }
             res.close();
-//            conexion.desconectar();
         } catch (SQLException e) {
             e.printStackTrace();
         }

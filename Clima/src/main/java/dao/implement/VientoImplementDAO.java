@@ -23,7 +23,6 @@ public class VientoImplementDAO implements VientoDAO {
             preparedStatement.setInt(1, viento.getVelocidad());
             preparedStatement.setString(2, viento.getDireccion());
             resultado = conexion.executeNonQuery(preparedStatement);
-//            conexion.desconectar();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -40,7 +39,6 @@ public class VientoImplementDAO implements VientoDAO {
             preparedStatement.setString(2, viento.getDireccion());
             preparedStatement.setInt(3, viento.getIdViento());
             resultado = conexion.executeNonQuery(preparedStatement);
-//            conexion.desconectar();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -55,7 +53,6 @@ public class VientoImplementDAO implements VientoDAO {
             PreparedStatement preparedStatement = conexion.getConnection().prepareStatement(consulta);
             preparedStatement.setInt(1, viento.getIdViento());
             resultado = conexion.executeNonQuery(preparedStatement);
-//            conexion.desconectar();
         } catch (SQLException e) {
             e.printStackTrace();
         }

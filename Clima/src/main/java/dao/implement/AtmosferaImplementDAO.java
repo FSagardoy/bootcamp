@@ -24,7 +24,6 @@ public class AtmosferaImplementDAO implements AtmosferaDAO {
             preparedStatement.setInt(3, atmosfera.getVisibilidad());
             preparedStatement.setInt(4, atmosfera.getAmbienteAscendente());
             resultado = conexion.executeNonQuery(preparedStatement);
-//            conexion.desconectar();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -43,7 +42,6 @@ public class AtmosferaImplementDAO implements AtmosferaDAO {
             preparedStatement.setInt(4, atmosfera.getAmbienteAscendente());
             preparedStatement.setInt(5, atmosfera.getIdAtmosfera());
             resultado = conexion.executeNonQuery(preparedStatement);
-//            conexion.desconectar();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -58,7 +56,6 @@ public class AtmosferaImplementDAO implements AtmosferaDAO {
             PreparedStatement preparedStatement = conexion.getConnection().prepareStatement(consulta);
             preparedStatement.setInt(1, atmosfera.getHumedad());
             resultado = conexion.executeNonQuery(preparedStatement);
-//            conexion.desconectar();
         } catch (SQLException e) {
             e.printStackTrace();
         }

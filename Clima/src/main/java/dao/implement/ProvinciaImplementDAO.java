@@ -28,7 +28,6 @@ public class ProvinciaImplementDAO implements ProvinciaDAO {
             preparedStatement.setString(4, provincia.getCapital());
             preparedStatement.setInt(5, provincia.getPais().getIdPais());
             resultado = conexion.executeNonQuery(preparedStatement);
-//            conexion.desconectar();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -47,7 +46,6 @@ public class ProvinciaImplementDAO implements ProvinciaDAO {
             preparedStatement.setString(4, provincia.getCapital());
             preparedStatement.setInt(5, provincia.getIdProvincia());
             resultado = conexion.executeNonQuery(preparedStatement);
-//            conexion.desconectar();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -62,7 +60,6 @@ public class ProvinciaImplementDAO implements ProvinciaDAO {
             PreparedStatement preparedStatement = conexion.getConnection().prepareStatement(consulta);
             preparedStatement.setInt(1, provincia.getIdProvincia());
             resultado = conexion.executeNonQuery(preparedStatement);
-//            conexion.desconectar();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -72,7 +69,7 @@ public class ProvinciaImplementDAO implements ProvinciaDAO {
 
     public ArrayList<Provincia> getProvincias() {
         conexion.conectar();
-        ArrayList<Provincia> resultado = new ArrayList<>();
+        ArrayList<Provincia> resultado = new ArrayList<Provincia>();
         String consulta = "select * from provincias";
         try {
             PreparedStatement preparedStatement = conexion.getConnection().prepareStatement(consulta);
@@ -88,7 +85,6 @@ public class ProvinciaImplementDAO implements ProvinciaDAO {
                 resultado.add(provincia);
             }
             res.close();
-//            conexion.desconectar();
         } catch (SQLException e) {
             e.printStackTrace();
         }
