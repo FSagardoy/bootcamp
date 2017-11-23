@@ -7,6 +7,7 @@ import dao.interfaz.ClimaDAO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class ClimaImplementDAO implements ClimaDAO{
@@ -73,8 +74,8 @@ public class ClimaImplementDAO implements ClimaDAO{
         ArrayList<Clima> resultado = new ArrayList<Clima>();
         String consulta = "select c.idclima, c.fecha, c.temperatura, c.descripcion, v.idviento, v.direccion, v.velocidad, a.idatmosfera, a.humedad, a.presion, a.visibilidad, a.ambiente_asc, p.idprovincia, p.nombre, c.tempmin, c.tempmax from climas c join vientos v on c.idviento = v.idviento join atmosferas a on c.idatmosfera = a.idatmosfera join provincias p on c.idprovincia = p.idprovincia where fecha between NOW() and DATE_ADD(NOW(), INTERVAL 10 DAY)";
         try {
-            PreparedStatement preparedStatement = conexion.getConnection().prepareStatement(consulta);
-            ResultSet res = conexion.executeQuery(preparedStatement);
+            Statement st = conexion.getConnection().createStatement();
+            ResultSet res = st.executeQuery(consulta);
             while (res.next()){
                 Clima clima = new Clima();
                 clima.setIdClima(res.getInt(1));
@@ -96,6 +97,7 @@ public class ClimaImplementDAO implements ClimaDAO{
                 resultado.add(clima);
             }
             res.close();
+            st.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

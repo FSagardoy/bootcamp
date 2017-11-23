@@ -7,6 +7,7 @@ import dao.interfaz.ProvinciaDAO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class ProvinciaImplementDAO implements ProvinciaDAO {
@@ -72,8 +73,8 @@ public class ProvinciaImplementDAO implements ProvinciaDAO {
         ArrayList<Provincia> resultado = new ArrayList<Provincia>();
         String consulta = "select * from provincias";
         try {
-            PreparedStatement preparedStatement = conexion.getConnection().prepareStatement(consulta);
-            ResultSet res = conexion.executeQuery(preparedStatement);
+            Statement st = conexion.getConnection().createStatement();
+            ResultSet res = st.executeQuery(consulta);
             while (res.next()){
                 Provincia provincia = new Provincia();
                 provincia.setIdProvincia(res.getInt(1));
@@ -85,6 +86,7 @@ public class ProvinciaImplementDAO implements ProvinciaDAO {
                 resultado.add(provincia);
             }
             res.close();
+            st.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

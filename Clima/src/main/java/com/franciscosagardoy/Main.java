@@ -18,12 +18,12 @@ public class Main {
 
         Scanner reader = new Scanner(System.in);
         int contador = 0;
+        PaisDAO pais = new PaisImplementDAO();
         do{
-            System.out.println("Ingrese el numero de lo que desea crear: \n1: Pais \n2: Provincia \n3: Clima \n4: Elija la provincia que desea ver el clima \n5: Salir");
+            System.out.println("Ingrese el numero de lo que desea hacer: \nCrear: \n1: Pais \nMostrar \n2: Lista de paises \n3: Salir");
             int n = reader.nextInt();
             switch (n) {
                 case 1: {
-                    PaisDAO pais = new PaisImplementDAO();
                     Pais p = new Pais();
                     System.out.println("Ingrese el codigo de 2 letras del pais");
                     String s = reader.next();
@@ -38,33 +38,15 @@ public class Main {
                     pais.insertPais(p);
                     break;
                 }
-                /*case 2:{
-                    Provincia prov = new Provincia();
-                    System.out.println("Seleccione el indice del pais: ");
-                    ArrayList<Pais> resultado = gestor.allPaises();
-                    for (int i = 0; i < resultado.size(); i++){
-                        System.out.println(i + ": " + resultado.get(i).getNombre());
+                case 2:{
+                    ArrayList<Pais> resultado = pais.getPaises();
+                    for (int i = 0; i < resultado.size(); i++) {
+                        System.out.println(i+1 + ": " + resultado.get(i).getNombre());
+
                     }
-                    n = reader.nextInt();
-                    prov.setIdPais(resultado.get(n).getIdPais());
-                    System.out.println("Ingrese el nombre de la provincia:");
-                    reader.nextLine();
-                    String s = reader.nextLine();
-                    prov.setNombre(s);
-                    System.out.println("Ingrese la abreviatura:");
-                    s = reader.next();
-                    prov.setAbreviatura(s);
-                    System.out.println("Ingrese la superficie:");
-                    n = reader.nextInt();
-                    prov.setSuperficie(n);
-                    System.out.println("Ingrese la capital: ");
-                    reader.nextLine();
-                    s = reader.nextLine();
-                    prov.setCapital(s);
-                    gestor.addProv(prov);
                     break;
                 }
-                case 3: {
+                /*case 3: {
                     Clima c = new Clima();
                     System.out.println("Seleccione el indice de la provincia: ");
                     ArrayList<Provincia> resultado = gestor.allProvincias();
@@ -142,11 +124,11 @@ public class Main {
                     for (Extendido extendido : gestor.getExtendidos(n)) {
                         System.out.println(extendido.ToString());
                     }
-                }
+                }*/
                 case 5:{
                     contador++;
                     break;
-                }*/
+                }
                 default:{
                     System.out.println("Usted ingreso una opcion invalida");
                 }

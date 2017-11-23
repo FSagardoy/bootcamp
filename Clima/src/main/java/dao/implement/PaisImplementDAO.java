@@ -7,6 +7,7 @@ import dao.interfaz.PaisDAO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class PaisImplementDAO implements PaisDAO {
@@ -69,8 +70,8 @@ public class PaisImplementDAO implements PaisDAO {
         ArrayList<Pais> resultado = new ArrayList<Pais>();
         String consulta = "select * from paises";
         try {
-            PreparedStatement preparedStatement = conexion.getConnection().prepareStatement(consulta);
-            ResultSet res = conexion.executeQuery(preparedStatement);
+            Statement st = conexion.getConnection().createStatement();
+            ResultSet res = st.executeQuery(consulta);
             while (res.next()){
                 Pais pais = new Pais();
                 pais.setIdPais(res.getInt(1));
@@ -80,6 +81,7 @@ public class PaisImplementDAO implements PaisDAO {
                 resultado.add(pais);
             }
             res.close();
+            st.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
