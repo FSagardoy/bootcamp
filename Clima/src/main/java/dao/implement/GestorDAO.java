@@ -1,25 +1,69 @@
-package com.franciscosagardoy;
+package dao.implement;
+
+import com.franciscosagardoy.Pais;
 
 import java.sql.*;
 import java.util.ArrayList;
 
+public class GestorDAO {
 
-public class GestorBD {
+    private static final String URL = "jdbc:mysql://localhost:3306/bootcamp";
+    private static final String USER = "root";
+    private static final String PASSWORD = "bootcamp2017";
+    private Connection connection = null;
+    private static GestorDAO instancia = null;
 
-    String connection = "jdbc:mysql://localhost:3306/bootcamp";
-    String user = "root";
-    String password = "bootcamp2017";
-    Connection conn;
-
-    public void abrirConexion() throws SQLException{
-        conn = DriverManager.getConnection(this.connection, user, this.password);
+    private GestorDAO() {
+        conectar();
     }
 
-    public void cerrarConexion() throws SQLException{
-        conn.close();
+    public static GestorDAO getInstancia() {
+        if(instancia == null) {
+            instancia = new GestorDAO();
+        }
+        return instancia;
     }
 
-    public int addPais(Pais p) throws SQLException{
+    public Connection getConnection() {
+        return connection;
+    }
+
+    protected void conectar(){
+        if (connection == null) {
+            try {
+                connection = DriverManager.getConnection(URL, USER, PASSWORD);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    protected void desconectar() {
+        try {
+            connection.close();
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        connection = null;
+    }
+
+
+    public int executeNonQuery(PreparedStatement consulta) throws SQLException {
+        int execute = consulta.executeUpdate();
+        this.desconectar();
+        return execute;
+    }
+
+    public ResultSet executeQuery(PreparedStatement consulta) throws SQLException {
+        ResultSet res = consulta.executeQuery();
+        res.close();
+        this.desconectar();
+        return res;
+    }
+
+
+
+    /*public int addPais(Pais p) throws SQLException{
         this.abrirConexion();
         Statement st = conn.createStatement();
         String query = "insert into paises (cod_alfa2, cod_alfa3, nombre) values ('" +
@@ -224,9 +268,8 @@ public class GestorBD {
             return false;
         }
         return true;
-    }
+    }*/
 
-    public GestorBD() throws SQLException {
-    }
+
 
 }

@@ -2,19 +2,20 @@ package com.franciscosagardoy;
 
 
 
+import dao.implement.GestorDAO;
+import dao.implement.PaisImplementDAO;
+import dao.interfaz.PaisDAO;
+
 import java.sql.*;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) throws SQLException, ParseException {
-        GestorBD gestor = new GestorBD();
+
         Scanner reader = new Scanner(System.in);
         int contador = 0;
         do{
@@ -22,6 +23,7 @@ public class Main {
             int n = reader.nextInt();
             switch (n) {
                 case 1: {
+                    PaisDAO pais = new PaisImplementDAO();
                     Pais p = new Pais();
                     System.out.println("Ingrese el codigo de 2 letras del pais");
                     String s = reader.next();
@@ -33,10 +35,10 @@ public class Main {
                     reader.nextLine();
                     s = reader.nextLine();
                     p.setNombre(s);
-                    gestor.addPais(p);
+                    pais.insertPais(p);
                     break;
                 }
-                case 2:{
+                /*case 2:{
                     Provincia prov = new Provincia();
                     System.out.println("Seleccione el indice del pais: ");
                     ArrayList<Pais> resultado = gestor.allPaises();
@@ -144,7 +146,7 @@ public class Main {
                 case 5:{
                     contador++;
                     break;
-                }
+                }*/
                 default:{
                     System.out.println("Usted ingreso una opcion invalida");
                 }
