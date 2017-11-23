@@ -6,7 +6,7 @@ public class Provincia {
     private String abreviatura;
     private int superficie;
     private String capital;
-    private int idPais ;
+    private Pais pais ;
 
     public int getIdProvincia() {
         return idProvincia;
@@ -46,11 +46,11 @@ public class Provincia {
 
     public void setCapital(String capital) { this.capital = capital; }
 
-    public int getIdPais() {
-        return idPais;
+    public Pais getPais() {
+        return pais;
     }
 
-    public void setIdPais(int idPais) {
-        this.idPais = idPais;
+    public void setPais(Pais pais) {
+        this.pais = pais;
     }
 }
