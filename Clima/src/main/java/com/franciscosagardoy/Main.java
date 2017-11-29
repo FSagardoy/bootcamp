@@ -2,14 +2,11 @@ package com.franciscosagardoy;
 
 
 
-import dao.implement.GestorDAO;
 import dao.implement.PaisImplementDAO;
-import dao.interfaz.PaisDAO;
 
 import java.sql.*;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Scanner;
 
 public class Main {

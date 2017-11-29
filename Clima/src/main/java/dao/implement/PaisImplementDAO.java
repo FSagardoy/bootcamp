@@ -2,7 +2,6 @@ package dao.implement;
 
 
 import com.franciscosagardoy.Pais;
-import dao.interfaz.PaisDAO;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,54 +9,54 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class PaisImplementDAO implements PaisDAO {
-    private GestorDAO conexion;
+public class PaisImplementDAO extends ImplementDAO{
 
-    public PaisImplementDAO(){
-        this.conexion = GestorDAO.getInstancia();
-    }
+    public PaisImplementDAO(){}
 
-    public int insertPais(Pais pais){
+    public int insert(Object object){
+        Pais pais = (Pais) object;
         int resultado = 0;
-        conexion.conectar();
+        getGestor().conectar();
         String consulta = "insert into paises (cod_alfa3, cod_alfa2, nombre) values (?,?,?)";
         try {
-            PreparedStatement preparedStatement = conexion.getConnection().prepareStatement(consulta);
+            PreparedStatement preparedStatement = getGestor().getConnection().prepareStatement(consulta);
             preparedStatement.setString(1,pais.getCodAlfa3());
             preparedStatement.setString(2, pais.getCodAlfa2());
             preparedStatement.setString(3,pais.getNombre());
-            resultado = conexion.executeNonQuery(preparedStatement);
+            resultado = executeNonQuery(preparedStatement);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return resultado;
     }
 
-    public int updatePais(Pais pais){
+    public int update(Object object){
+        Pais pais = (Pais) object;
         int resultado = 0;
-        conexion.conectar();
+        getGestor().conectar();
         String consulta = "update paises set cod_alfa3 = ?, cod_alfa2 = ?, nombre = ? where idpais = ?";
         try {
-            PreparedStatement preparedStatement = conexion.getConnection().prepareStatement(consulta);
+            PreparedStatement preparedStatement = getGestor().getConnection().prepareStatement(consulta);
             preparedStatement.setString(1, pais.getCodAlfa3());
             preparedStatement.setString(2, pais.getCodAlfa2());
             preparedStatement.setString(3, pais.getNombre());
             preparedStatement.setInt(4, pais.getIdPais());
-            resultado = conexion.executeNonQuery(preparedStatement);
+            resultado = executeNonQuery(preparedStatement);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return resultado;
     }
 
-    public int deletePais(Pais pais){
+    public int delete(Object object){
+        Pais pais = (Pais) object;
         int resultado = 0;
-        conexion.conectar();
+        getGestor().conectar();
         String consulta = "delete from paises where idpais = ?";
         try {
-            PreparedStatement preparedStatement = conexion.getConnection().prepareStatement(consulta);
+            PreparedStatement preparedStatement = getGestor().getConnection().prepareStatement(consulta);
             preparedStatement.setInt(1, pais.getIdPais());
-            resultado = conexion.executeNonQuery(preparedStatement);
+            resultado = executeNonQuery(preparedStatement);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -65,12 +64,12 @@ public class PaisImplementDAO implements PaisDAO {
     }
 
 
-    public ArrayList<Pais> getPaises() {
-        conexion.conectar();
-        ArrayList<Pais> resultado = new ArrayList<Pais>();
+    public ArrayList<Object> select() {
+        getGestor().conectar();
+        ArrayList<Object> resultado = new ArrayList<Object>();
         String consulta = "select * from paises";
         try {
-            Statement st = conexion.getConnection().createStatement();
+            Statement st = getGestor().getConnection().createStatement();
             ResultSet res = st.executeQuery(consulta);
             while (res.next()){
                 Pais pais = new Pais();

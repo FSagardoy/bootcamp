@@ -47,18 +47,4 @@ public class GestorDAO {
         connection = null;
     }
 
-
-    public int executeNonQuery(PreparedStatement consulta) throws SQLException {
-        int execute = consulta.executeUpdate();
-        this.desconectar();
-        return execute;
-    }
-
-    public ResultSet executeQuery(PreparedStatement consulta) throws SQLException {
-        ResultSet res = consulta.executeQuery();
-        res.close();
-        this.desconectar();
-        return res;
-    }
-
 }

@@ -11,7 +11,7 @@ public class Clima {
     private String descripcion;
     private Viento viento;
     private Atmosfera atmosfera;
-    private Provincia provincia;
+    private Localidad localidad;
 
     public Clima(){}
 
@@ -63,12 +63,12 @@ public class Clima {
         this.atmosfera = atmosfera;
     }
 
-    public Provincia getProvincia() {
-        return provincia;
+    public Localidad getLocalidad() {
+        return localidad;
     }
 
-    public void setProvincia(Provincia provincia) {
-        this.provincia = provincia;
+    public void setLocalidad(Localidad localidad) {
+        this.localidad = localidad;
     }
 
     public int getTempmin() {
@@ -86,6 +86,7 @@ public class Clima {
     public void setTempmax(int tempmax) {
         this.tempmax = tempmax;
     }
+
 }
 
 

@@ -2,7 +2,6 @@ package dao.implement;
 
 
 import com.franciscosagardoy.Provincia;
-import dao.interfaz.ProvinciaDAO;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,57 +9,57 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class ProvinciaImplementDAO implements ProvinciaDAO {
-    private GestorDAO conexion;
+public class ProvinciaImplementDAO extends ImplementDAO{
 
-    public ProvinciaImplementDAO(){
-        this.conexion = GestorDAO.getInstancia();
-    }
+    public ProvinciaImplementDAO(){}
 
-    public int insertProvincia(Provincia provincia){
+    public int insert(Object object){
+        Provincia provincia = (Provincia) object;
         int resultado = 0;
-        conexion.conectar();
+        getGestor().conectar();
         String consulta = "insert into provincias (nombre, abreviatura, superficie, capital, idpais) valus (?,?,?,?,?)";
         try {
-            PreparedStatement preparedStatement = conexion.getConnection().prepareStatement(consulta);
+            PreparedStatement preparedStatement = getGestor().getConnection().prepareStatement(consulta);
             preparedStatement.setString(1, provincia.getNombre());
             preparedStatement.setString(2, provincia.getAbreviatura());
             preparedStatement.setInt(3, provincia.getSuperficie());
             preparedStatement.setString(4, provincia.getCapital());
             preparedStatement.setInt(5, provincia.getPais().getIdPais());
-            resultado = conexion.executeNonQuery(preparedStatement);
+            resultado = executeNonQuery(preparedStatement);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return resultado;
     }
 
-    public int updateProvincia(Provincia provincia){
+    public int update(Object object){
+        Provincia provincia = (Provincia) object;
         int resultado = 0;
-        conexion.conectar();
+        getGestor().conectar();
         String consulta = "update provincias set nombre = ?, abreviatura = ?, superficie = ?, capital = ? where idprovincia = ?";
         try {
-            PreparedStatement preparedStatement = conexion.getConnection().prepareStatement(consulta);
+            PreparedStatement preparedStatement = getGestor().getConnection().prepareStatement(consulta);
             preparedStatement.setString(1, provincia.getNombre());
             preparedStatement.setString(2, provincia.getAbreviatura());
             preparedStatement.setInt(3, provincia.getSuperficie());
             preparedStatement.setString(4, provincia.getCapital());
             preparedStatement.setInt(5, provincia.getIdProvincia());
-            resultado = conexion.executeNonQuery(preparedStatement);
+            resultado = executeNonQuery(preparedStatement);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return resultado;
     }
 
-    public int deleteProvincia(Provincia provincia){
+    public int delete(Object object){
+        Provincia provincia = (Provincia) object;
         int resultado = 0;
-        conexion.conectar();
+        getGestor().conectar();
         String consulta = "delete from paises where idpais = ?";
         try {
-            PreparedStatement preparedStatement = conexion.getConnection().prepareStatement(consulta);
+            PreparedStatement preparedStatement = getGestor().getConnection().prepareStatement(consulta);
             preparedStatement.setInt(1, provincia.getIdProvincia());
-            resultado = conexion.executeNonQuery(preparedStatement);
+            resultado = executeNonQuery(preparedStatement);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -68,12 +67,12 @@ public class ProvinciaImplementDAO implements ProvinciaDAO {
     }
 
 
-    public ArrayList<Provincia> getProvincias() {
-        conexion.conectar();
-        ArrayList<Provincia> resultado = new ArrayList<Provincia>();
+    public ArrayList<Object> select() {
+        getGestor().conectar();
+        ArrayList<Object> resultado = new ArrayList<Object>();
         String consulta = "select * from provincias";
         try {
-            Statement st = conexion.getConnection().createStatement();
+            Statement st = getGestor().getConnection().createStatement();
             ResultSet res = st.executeQuery(consulta);
             while (res.next()){
                 Provincia provincia = new Provincia();
