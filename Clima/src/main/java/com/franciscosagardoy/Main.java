@@ -3,6 +3,8 @@ package com.franciscosagardoy;
 
 
 import dao.implement.PaisImplementDAO;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.sql.*;
 import java.text.ParseException;
@@ -13,9 +15,13 @@ public class Main {
 
     public static void main(String[] args) throws SQLException, ParseException {
 
-        Scanner reader = new Scanner(System.in);
+        ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
+        PaisImplementDAO pais = (PaisImplementDAO) context.getBean("PaisDAO");
+
+
+        /*Scanner reader = new Scanner(System.in);
         int contador = 0;
-        PaisDAO pais = new PaisImplementDAO();
+        PaisImplementDAO pais = new PaisImplementDAO();
         do{
             System.out.println("Ingrese el numero de lo que desea hacer: \nCrear: \n1: Pais \nMostrar \n2: Lista de paises \n3: Salir");
             int n = reader.nextInt();
@@ -32,13 +38,14 @@ public class Main {
                     reader.nextLine();
                     s = reader.nextLine();
                     p.setNombre(s);
-                    pais.insertPais(p);
+                    pais.insert(p);
                     break;
                 }
                 case 2:{
-                    ArrayList<Pais> resultado = pais.getPaises();
+                    ArrayList<Object> resultado = pais.select();
                     for (int i = 0; i < resultado.size(); i++) {
-                        System.out.println(i+1 + ": " + resultado.get(i).getNombre());
+                        Pais p = (Pais) resultado.get(i);
+                        System.out.println(i+1 + ": " + p.getNombre());
 
                     }
                     break;
@@ -57,7 +64,7 @@ public class Main {
 
 
         reader.close();
-
+*/
 
     }
 

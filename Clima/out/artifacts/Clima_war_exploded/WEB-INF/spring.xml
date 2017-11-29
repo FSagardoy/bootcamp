@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id = "conectorJDBC" class="dao.implement.GestorDAO"/>
+
+    <bean id="DAOPadre" class="dao.implement.ImplementDAO" abstract="true"/>
+
+    <bean id = "VientoDAO" class="dao.implement.VientoImplementDAO" parent="DAOPadre"/>
+
+    <bean id ="AtmosferaDAO" class="dao.implement.AtmosferaImplementDAO" parent="DAOPadre"/>
+
+    <bean id="ClimaDAO" class="dao.implement.ClimaImplementDAO" parent="DAOPadre"/>
+
+    <bean id="PaisDAO" class="dao.implement.PaisImplementDAO" parent="DAOPadre"/>
+
+    <bean id="ProvinciaDAO" class="dao.implement.ProvinciaImplementDAO" parent="DAOPadre"/>
+
+    <bean id="LocalidadDAO" class="dao.implement.LocalidadImplementDAO" parent="DAOPadre"/>
+</beans>

@@ -7,9 +7,11 @@ import java.sql.SQLException;
 
 public class LocalidadImplementDAO extends ImplementDAO {
 
-    public LocalidadImplementDAO(){}
+    public LocalidadImplementDAO() {
+    }
 
-    public int insert(Object object){
+    @Override
+    public int insert(Object object) {
         Localidad localidad = (Localidad) object;
         int resultado = 0;
         getGestor().conectar();
@@ -24,7 +26,8 @@ public class LocalidadImplementDAO extends ImplementDAO {
         return resultado;
     }
 
-    public int update(Object object){
+    @Override
+    public int update(Object object) {
         Localidad localidad = (Localidad) object;
         int resultado = 0;
         getGestor().conectar();
@@ -37,5 +40,22 @@ public class LocalidadImplementDAO extends ImplementDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return resultado;
+    }
+
+    @Override
+    public int delete(Object object) {
+        Localidad localidad = (Localidad) object;
+        int resultado = 0;
+        getGestor().conectar();
+        String consulta = "delete from localidades where idlocalidad = ?";
+        try {
+            PreparedStatement preparedStatement = getGestor().getConnection().prepareStatement(consulta);
+            preparedStatement.setInt(1, localidad.getIdLocalidad());
+            resultado = executeNonQuery(preparedStatement);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return resultado;
     }
 }
